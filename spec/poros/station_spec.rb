@@ -9,7 +9,7 @@ RSpec.describe Station do
       city: "Denver",
       state: "CO",
       zip: "80202",
-      distance: 0.1226
+      distance:  0.12268
     } }
 
   let!(:station) {Station.new(attributes)}
@@ -22,6 +22,7 @@ RSpec.describe Station do
     expect(station.name).to eq("16M Building 16M B-1")
     expect(station.fuel_type).to eq("ELEC")
     expect(station.address).to eq("1550 Market St, Denver, CO, 80202")
-    expect(station.access_times).to eq("24 horus daily")
+    expect(station.access_times).to eq("24 hours daily")
+    expect(station.distance).to eq( 0.12268)
   end
 end
