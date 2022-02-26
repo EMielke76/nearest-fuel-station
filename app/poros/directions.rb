@@ -3,7 +3,7 @@ class Directions
               :instructions
 
   def initialize(attributes)
-    @travel_time = attributes[:route][:formattedTime]
-    @instructions = attributes[:route][:legs].first[:maneuvers].map {|narrative| narrative[:narrative]}
+    @travel_time = attributes[:formattedTime]
+    @instructions = attributes[:legs].first[:maneuvers].map {|narrative| narrative[:narrative]}
   end
 end
