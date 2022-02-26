@@ -24,8 +24,21 @@ RSpec.describe 'Search Results Index' do
     expect(page).to have_content("Fuel Type: ELEC")
     expect(page).to have_content("Access Times: 24 hours daily")
     expect(page).to have_content("Distance: 0.12 miles")
-  end 
+  end
 
   it 'displays the distance, travel time, and directions to the the nearest station' do
+    VCR.use_cassette('call-both') do
+      visit '/'
+      select "Turing", from: :location
+      click_on "Find Nearest Station"
+
+      expect(page).to have_content("Est Travel Time: 00:01:00")
+      expect(page).to have_content("Directions")
+      expect(page).to have_content("Start out going southeast on 17th St toward Larimer St/CO-33.")
+      expect(page).to have_content("Turn right onto Larimer St/CO-33.")
+      expect(page).to have_content("Turn right onto 15th St/CO-33.")
+      expect(page).to have_content("Turn right onto Market St.")
+      expect(page).to have_content("1550 MARKET ST is on the right.")
+    end
   end
 end
