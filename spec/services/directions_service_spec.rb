@@ -7,23 +7,27 @@ RSpec.describe DirectionsService do
         VCR.use_cassette('get_directions') do
           from = '1331 17th St, Denver, CO 80202'
           to = '1550 Market St, Denver, CO, 80202'
-          query = DirectionService.new
+          query = DirectionsService.new
           results = query.get_directions(from, to)
 
           expect(results).to be_a(Hash)
-          expect(results).to have_key(:formattedTime)
-          expect(results[:formattedTime]).to be_a(String)
+          expect(results).to have_key(:route)
 
-          expect(results).to have_key(:legs)
-          expect(results[:legs]).to be_a(Array)
+          route = results[:route]
 
-          directions = results[:legs].first
+          expect(route).to have_key(:formattedTime)
+          expect(route[:formattedTime]).to be_a(String)
 
+          expect(route).to have_key(:legs)
+          expect(route[:legs]).to be_a(Array)
+
+          directions = route[:legs].first
+          
           expect(directions).to have_key(:maneuvers)
           expect(directions[:maneuvers]).to be_a(Array)
 
           directions[:maneuvers].each do |maneuver|
-            expect(maneuver).to have_key[:narrative]
+            expect(maneuver).to have_key(:narrative)
           end
         end
       end
