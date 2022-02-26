@@ -8,7 +8,7 @@ describe "user can visit the welcome page" do
     expect(page).to have_button("Find Nearest Station")
   end
 
-  it 'links to a search results page' do
+  it 'links to a search results page', :vcr do
     visit '/'
     select "Turing", from: :location
     click_on "Find Nearest Station"
