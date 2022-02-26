@@ -14,9 +14,18 @@ RSpec.describe 'Search Results Index' do
   # - the travel time from Turing to that fuel station (should be 1 min)
   # - The direction instructions to get to that fuel station
   #   "Turn left onto Lawrence St Destination will be on the left"
-  it 'displays the neartest station and its attributes' do
-  end
+  it 'displays the neartest station and its attributes', :vcr do
+    visit '/'
+    select "Turing", from: :location
+    click_on "Find Nearest Station"
 
-  it 'displays the distance, travel time, and directions to the the nearest station' do 
+    expect(page).to have_content("Station Name: 16M BUILDING 16M B-1")
+    expect(page).to have_content("Address: 1550 Market St, Denver, CO, 80202")
+    expect(page).to have_content("Fuel Type: ELEC")
+    expect(page).to have_content("Access Times: 24 hours daily")
+    expect(page).to have_content("Distance: 0.12 miles")
+  end 
+
+  it 'displays the distance, travel time, and directions to the the nearest station' do
   end
 end
